@@ -1,0 +1,71 @@
+SunDisk Folder Meta Info      Latest:  30 Dec 2014
+Sun Disk Tracking
+
+Refs: - http://www.nrel.gov/midc/spa/#register (National Renewable Energy Lab/DOE/USGOV
+      - File: SolarTrackAlg_34302.pdf
+      
+C-Code Files:
+spa.c, spa.h, spa_tester.c
+
+
+WINDOWS MinGW Compile:
+- Open Windows command line/terminal with 'C:\Windows\System32\cmd.exe' (or icon/shortcuts)
+- cd to the C:\SunDisk directory
+- build with 'gcc spa.c spa_tester_mg1.c -o spa_tester_mg1.exe'
+  
+  ( -OR-  use 'g++' in place of gcc'   and use some other suitable 'tester' file )
+  
+
+LINUX (CentOS Boxx PC) COMPILE (Build):
+REFS: 
+http://www.network-theory.co.uk/docs/gccintro/gccintro_17.html
+http://stackoverflow.com/questions/1033898/why-do-you-have-to-link-the-math-library-in-c
+
+1) To compile and link 'spa.c,' the '-lm' option is used with 'gcc':
+
+		'gcc spa.c spa_tester_mg1.c -lm -o spa_tester_mg1'
+
+	where '-lm' actually specifies the library named 'libm.a,' following the 
+	convention that some '-l[name]' is actually lib[name].a.  See?  (Refs)
+
+	Note:  Library is an archive of object files, to be linked to your own
+          compiled object file.
+
+	Note:  Terminal 'whereis libm' yields: 
+					libm: /usr/lib/libm.so /usr/lib/libm.a,  where
+
+          - the '.so' (shared object) version is for dynamic/run-time linking
+ 			 - and .a (archive) is the static (compile & link time) version. 
+  
+	Note:  The <stdio.h> file will automatically cause 'gcc' to get the 'libc'
+          library, so an explicit '-lc' (to get libc.a) is not needed.
+
+2) Optionally, you can replace <math.h> with <cmath.h>, which seems to be
+   automatically linked (at least on my CentOS/Boxx PC system).
+
+3) Created a MAKEFILE (both a complicated and simple versions) to 
+   allow building with a simple: 
+
+				'make'  command (which uses the 'makefile' file.)
+
+
+SETUP, COMPILE, and RUN:
+
+1) Change CONSTANTS in the 'spa_tester_mg1.c' file according to DATE and 
+   information at the NAVY WEBSITE:  
+						http://maia.usno.navy.mil/ser7/ser7.dat
+   
+	NOTE: The 'DUT1' parameter changes daily and 
+		- is equal to (UT1 - UTC):
+		- is listed by date in the 'IERS BULLETIN - A' table, last column.
+		- e.g. for 29 Dec 2015, DUT1 = -0.45649
+
+	
+2) Run with 'spa_tester_mg1.exe'   
+
+	- Enjoy your winnings, Polly!
+
+
+  
+ 
+
